@@ -6,14 +6,14 @@ on:
       - main
 jobs:
   build:
+    name: Deploy Hexo
     runs-on: ubuntu-latest
     steps:
     - name: Checkout master
       uses: actions/checkout@v2
-    - name: Get Token
+    - name: Deploy docs
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Deploy docs
       run: |
         npm install
         npm run clean
