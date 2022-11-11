@@ -11,6 +11,8 @@ jobs:
     - name: Checkout master
       uses: actions/checkout@v2
     - name: Deploy Blog
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         npm install
         npm run clean
@@ -21,10 +23,10 @@ jobs:
         git config --global push.default matching
         git config user.name "${GITHUB_ACTOR}"
         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-        echo ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git
+        echo ${GITHUB_SERVER_URL}/${GITHUB_ACTION_REPOSITORY}.git
         git checkout --orphan gh-pages
         git add .
         git commit --allow-empty -m "Building and deploying Hexo project from Github Action"
         echo '>>> Start Push ...'
-        git push "${{ secrets.GITHUB_TOKEN }}@${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git" gh-pages
+        git push "${{ secrets.GITHUB_TOKEN }}@${GITHUB_SERVER_URL}/${GITHUB_ACTION_REPOSITORY}.git" gh-pages
         echo ">>> Deployment successful!"
