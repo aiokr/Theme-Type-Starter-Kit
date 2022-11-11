@@ -1,2 +1,2 @@
-http://example.com/2022/11/11/hello-world/
-http://example.com/
+https://aiokr.github.io/Theme-Type-Starter-Kit/2022/11/11/hello-world/
+https://aiokr.github.io/Theme-Type-Starter-Kit
