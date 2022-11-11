@@ -20,8 +20,8 @@ jobs:
           git init
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git remote add origin "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
-          echo ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}
+          git remote add origin "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git"
+          echo ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git
           git checkout --orphan gh-pages
           git add .
           git commit --allow-empty -m "Building and deploying Hexo project from Github Action"
