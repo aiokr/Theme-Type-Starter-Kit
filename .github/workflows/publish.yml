@@ -16,6 +16,7 @@ jobs:
         npm run clean
         npm run build
         cd public
+        echo ">>>  Set Git Config"
         git init
         git config user.name "${GITHUB_ACTOR}"
         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
@@ -25,5 +26,5 @@ jobs:
         git add .
         git commit --allow-empty -m "Building and deploying Hexo project from Github Action"
         echo '>>> Start Push ...'
-        git push --force "https://${GITHUB_TOKEN}@${GITHUB_DOMAIN:-"github.com"}/${GITHUB_REPOSITORY}.git" gh-pages
+        git push --force "https://${{ secrets.GITHUB_TOKEN }}@${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git" gh-pages
         echo ">>> Deployment successful!"
