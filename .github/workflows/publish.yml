@@ -17,16 +17,10 @@ jobs:
         npm install
         npm run clean
         npm run build
-        cd public
-        echo ">>>  Set Git Config"
-        git init
-        git config --global push.default matching
-        git config user.name "${GITHUB_ACTOR}"
-        git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-        echo ${GITHUB_SERVER_URL}/${GITHUB_ACTION_REPOSITORY}.git
-        git checkout --orphan gh-pages
-        git add .
-        git commit --allow-empty -m "Building and deploying Hexo project from Github Action"
-        echo '>>> Start Push ...'
-        git push "${{ secrets.GITHUB_TOKEN }}@${GITHUB_SERVER_URL}/${GITHUB_ACTION_REPOSITORY}.git" gh-pages
-        echo ">>> Deployment successful!"
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: public
+        BASE_BRANCH: main
