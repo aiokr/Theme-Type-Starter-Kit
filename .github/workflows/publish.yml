@@ -6,28 +6,27 @@ on:
       - main
 jobs:
   build:
-    name: Deploy Hexo
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout master
-        uses: actions/checkout@v2
-      - name: Get Token
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Deploy docs
-        run: |
-          npm install
-          npm run clean
-          npm run build
-          cd public
-          git init
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git remote add origin "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git"
-          echo ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git
-          git checkout --orphan gh-pages
-          git add .
-          git commit --allow-empty -m "Building and deploying Hexo project from Github Action"
-          echo '>>> Start Push ...'
-          git push --force "https://x-access-token:${GITHUB_TOKEN}@${GITHUB_DOMAIN:-"github.com"}/${GITHUB_REPOSITORY}.git" gh-pages
-          echo ">>> Deployment successful!"
+    - name: Checkout master
+      uses: actions/checkout@v2
+    - name: Get Token
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Deploy docs
+      run: |
+        npm install
+        npm run clean
+        npm run build
+        cd public
+        git init
+        git config user.name "${GITHUB_ACTOR}"
+        git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        git remote add origin "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git"
+        echo ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git
+        git checkout --orphan gh-pages
+        git add .
+        git commit --allow-empty -m "Building and deploying Hexo project from Github Action"
+        echo '>>> Start Push ...'
+        git push --force "https://x-access-token:${GITHUB_TOKEN}@${GITHUB_DOMAIN:-"github.com"}/${GITHUB_REPOSITORY}.git" gh-pages
+        echo ">>> Deployment successful!"
