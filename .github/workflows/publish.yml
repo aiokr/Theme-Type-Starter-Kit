@@ -26,5 +26,5 @@ jobs:
         git add .
         git commit --allow-empty -m "Building and deploying Hexo project from Github Action"
         echo '>>> Start Push ...'
-        git push --force "https://${{ secrets.GITHUB_TOKEN }}@${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git" gh-pages
+        git push --force "${{ secrets.GITHUB_TOKEN }}@${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git" gh-pages
         echo ">>> Deployment successful!"
