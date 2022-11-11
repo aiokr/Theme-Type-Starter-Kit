@@ -11,10 +11,18 @@ jobs:
       - name: Checkout master
         uses: actions/checkout@v2
       - name: Deploy docs
-        uses: aiokr/deploy-ghpages-action@master
-        env:
-          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # The repository the action should deploy to.
-          PUBLISH_REPOSITORY: aiokr/Theme-Type-Starter-Kit
-          # The branch the action should deploy to.
-          BRANCH: gh-pages
+        run: |
+          npm install
+          npm run clean
+          npm run build
+          cd publish
+          git init
+          git config user.name "${{GITHUB_ACTOR}}"
+          git config user.email "${{GITHUB_ACTOR}}@users.noreply.github.com"
+          git remote add origin "${{GITHUB_SERVER_URL}}/${{GITHUB_REPOSITORY}}"
+          git checkout --orphan gh-pages
+          git add .
+          git commit --allow-empty -m "Building and deploying Hexo project from Github Action"
+          echo '>>> Start Push ...'
+          git push -u origin "gh-pages" --force
+          echo ">>> Deployment successful!"
