@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Checkout master
         uses: actions/checkout@v2
-      - name: Deploy docs
+      - name: Deploy Blog
         uses: aiokr/deploy-ghpages-action@master
         env:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
