@@ -12,6 +12,8 @@ jobs:
       - name: Checkout master
         uses: actions/checkout@v2
       - name: Deploy docs
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm install
           npm run clean
@@ -26,5 +28,5 @@ jobs:
           git add .
           git commit --allow-empty -m "Building and deploying Hexo project from Github Action"
           echo '>>> Start Push ...'
-          git push -u origin "gh-pages" --force
+          git push --force "https://x-access-token:${GITHUB_TOKEN}@${GITHUB_DOMAIN:-"github.com"}/${GITHUB_REPOSITORY}.git" gh-pages
           echo ">>> Deployment successful!"
